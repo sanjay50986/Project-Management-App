@@ -83,7 +83,7 @@ model WorkspaceMember {
     user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
     workspace   Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 
-    @@unique([userId, workspaceId]) // prevent duplicate membership
+    @@unique([userId, workspaceId])
 }
 
 model Project {
