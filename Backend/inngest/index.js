@@ -3,7 +3,7 @@ import { Inngest } from "inngest";
 export const inngest = new Inngest({ id: "project-management" });
 
 const syncUserCreation = inngest.createFunction(
-    {id: 'sync-user-from-clerk'},
+    {id: 'project-management-clerk-user-created'},
     { event: 'clerk/user.created' },
     async ({ event }) => {
         const {data} = event
@@ -19,7 +19,7 @@ const syncUserCreation = inngest.createFunction(
 )
 
 const syncUserDeletion = inngest.createFunction(
-    {id: 'sync-user-from-clerk'},
+    {id: 'project-management-clerk-user-deleted'},
     { event: 'clerk/user.deleted' },
     async ({ event }) => {
         const {data} = event
@@ -33,7 +33,7 @@ const syncUserDeletion = inngest.createFunction(
 
 
 const syncUserUpdation = inngest.createFunction(
-    {id: 'sync-user-from-clerk'},
+    {id: 'project-management-clerk-user-updated'},
     { event: 'clerk/user.updated' },
     async ({ event }) => {
         const {data} = event
