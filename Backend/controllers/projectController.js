@@ -82,7 +82,7 @@ export const createProject = async (req, res) => {
 export const updateProject = async (req, res) => {
     try {
         const {userId} = await req.auth()
-        const {id, workspaceId, name, description, status, start_date, end_date, team_members, team_lead, progress, priority} = req.body
+        const {id, workspaceId, name, description, status, start_date, end_date, team_members, team_lead, progress, priority} = req.body || {};
 
          // check is user has admin role for workspace
         const workspace = await prisma.workspace.findUnique({
