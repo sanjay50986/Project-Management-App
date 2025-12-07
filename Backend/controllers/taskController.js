@@ -19,7 +19,7 @@ export const createTask = async (req, res) => {
             return res.status(404).json({
                 message: "Project not found"
             })
-        } else if (project.team_lead === userId) {
+        } else if (project.team_lead !== userId) {
              return res.status(403).json({
                 message: "You don't have admin privileges for this project"
             })
@@ -37,6 +37,7 @@ export const createTask = async (req, res) => {
                 priority,
                 assigneeId,
                 status,
+                type,
                 due_date: new Date(due_date)
             }
         })
@@ -89,13 +90,9 @@ export const updateTask = async (req, res) => {
             return res.status(404).json({
                 message: "Project not found"
             })
-        } else if (project.team_lead === userId) {
+        } else if (project.team_lead !== userId) {
              return res.status(403).json({
                 message: "You don't have admin privileges for this project"
-            })
-        } else if (assigneeId && !project.members.find((member) => member.user.id === assigneeId)) {
-             return res.status(403).json({
-                message: "assignee is not a member of the project / workspace"
             })
         }
 
@@ -125,7 +122,7 @@ export const deleteTask = async (req, res) => {
             where: {id: {in: taskIds}}
         })
 
-        if(task.length === 0) {
+        if(tasks.length === 0) {
             return res.status(404).json({message: "Task not found"})
         }
 
@@ -140,7 +137,7 @@ export const deleteTask = async (req, res) => {
             return res.status(404).json({
                 message: "Project not found"
             })
-        } else if (project.team_lead === userId) {
+        } else if (project.team_lead !== userId) {
              return res.status(403).json({
                 message: "You don't have admin privileges for this project"
             })
